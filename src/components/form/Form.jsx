@@ -1,5 +1,8 @@
 import React from 'react';
-import './Form.scss'
+import Button from '../button/Button';
+import './Form.scss';
+
+
 
 class Form extends React.Component {
 
@@ -9,24 +12,43 @@ class Form extends React.Component {
         this.state = {
             method: '',
             url: '',
+            shown: 'none',
+            styleArray: [
+                { method: 'get', classN: 'methodButton' },
+                { method: 'put', classN: 'methodButton' },
+                { method: 'patch', classN: 'methodButton' },
+                { method: 'update', classN: 'methodButton' },
+                { method: 'delete', classN: 'methodButton' },
+
+            ]
         }
     }
-    handleMethod = async e => {
-        e.preventDefault();
 
-        await this.setState({
-            method: e.target.value,
-        })
-        console.log('e.target', e.target.value);
-        console.log('this.state.method', this.state.method)
-    }
     handleSubmit = async e => {
         e.preventDefault();
         await this.setState({
             url: e.target.linkinput.value,
         })
-        console.log('e.target', e.target.linkinput.value);
-        console.log('this.state.url', this.state.url)
+
+    }
+    chosenMethod = async mth => {
+
+        let array = this.state.styleArray.map(element => {
+            if (element.method === mth) {
+                element.classN = 'clickedButton';
+                return element;
+            }
+            else {
+                element.classN = 'methodButton';
+                return element;
+            }
+        })
+
+        await this.setState({
+            method: mth,
+            styleArray: array,
+        })
+        console.log(this.state.styleArray)
     }
 
 
@@ -40,15 +62,20 @@ class Form extends React.Component {
                     <input type="text" id="linkinput" />
 
 
-                    {/* <a href=""> Get</a> */}
                     <button type='submit'>Go!</button>
-                    <button onClick={this.handleMethod} value="get">Get</button>
+                    {/* <button onClick={this.handleMethod} value="get">Get</button>
                     <button onClick={this.handleMethod} value="Post">Post</button>
                     <button onClick={this.handleMethod} value="Put">Put</button>
-                    <button onClick={this.handleMethod} value="Delete">Delete</button>
+                    <button onClick={this.handleMethod} value="Delete">Delete</button>  */}
+                    <div>
 
+                        <Button shown={this.state.shown} clickedMethod={this.chosenMethod} text='get' styleClass={this.state.styleArray[0]} />
+                        <Button shown={this.state.shown} clickedMethod={this.chosenMethod} text='put' styleClass={this.state.styleArray[1]} />
+                        <Button shown={this.state.shown} clickedMethod={this.chosenMethod} text='patch' styleClass={this.state.styleArray[2]} />
+                        <Button shown={this.state.shown} clickedMethod={this.chosenMethod} text='update' styleClass={this.state.styleArray[3]} />
+                        <Button shown={this.state.shown} clickedMethod={this.chosenMethod} text='delete' styleClass={this.state.styleArray[4]} />
+                    </div>
 
-               
                 </form>
 
                 <div className='requests'>
