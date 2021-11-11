@@ -1,0 +1,18 @@
+.methodButton{
+    width: 60px;
+    
+    background-color: gray;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.clickedButton{
+    width: 60px;
+   
+    background-color: rgb(95, 17, 102);
+    display: inline-block;
+    margin-left: 20px;
+    border-radius: 50%;
+    
+    color:whitesmoke
+}

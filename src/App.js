@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React from 'react';
+import './App.css';
+import Footer from './components/footer/Footer';
+import Form from './components/form/Form';
+import Header from './components/header/Header';
+import Results from './components/results/results';
+
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      Count:0,
+      result:{}
+
+    }
+  }
+
+  handleResult=async(result)=>{
+    await this.setState({
+      result:result,
+    })
+    console.log(this.state.result)
+
+  }
+
+  render(){
+
+    return (
+      <div className="App">
+        
+      <Header/>
+      <Form handleResult={this.handleResult}/>
+      <Results count={this.state.result} header={this.state.result.headers} result={this.state.result.data}/>
+      <Footer/>
     </div>
   );
+}
 }
 
 export default App;
