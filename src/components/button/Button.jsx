@@ -14,7 +14,7 @@ constructor(props){
      method= ()=>{
         let text = this.props.text;
         this.props.clickedMethod(text);
-        console.log(this.state.classN)
+        
        
         
     }

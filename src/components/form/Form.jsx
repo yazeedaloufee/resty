@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../button/Button';
 import './Form.scss';
+import axios from 'axios';
 
 
 
@@ -10,11 +11,11 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            method: '',
+            method: 'get',
             url: '',
             shown: 'none',
             styleArray: [
-                { method: 'get', classN: 'methodButton' },
+                { method: 'get', classN: 'clickedButton' },
                 { method: 'put', classN: 'methodButton' },
                 { method: 'patch', classN: 'methodButton' },
                 { method: 'update', classN: 'methodButton' },
@@ -29,6 +30,34 @@ class Form extends React.Component {
         await this.setState({
             url: e.target.linkinput.value,
         })
+     this.handleRequest(this.state.method,this.state.url);
+      
+
+        
+    }
+
+
+    handleRequest=async(method,link)=>{
+        let results=[];
+        if (method==='get'){
+             results= await axios.get(link);
+        }
+        if (method==='put'){
+             results= await axios.put(link);
+        }
+        if (method==='patch'){
+             results= await axios.patch(link);
+            
+        }
+        if (method==='update'){
+             results= await axios.update(link);
+        }
+        if (method==='delete'){
+             results= await axios.delete(link);
+        }
+        console.log(results)
+        this.props.handleResult(results);
+        
 
     }
     chosenMethod = async mth => {
@@ -48,7 +77,7 @@ class Form extends React.Component {
             method: mth,
             styleArray: array,
         })
-        console.log(this.state.styleArray)
+        
     }
 
 
